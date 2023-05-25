@@ -1,74 +1,42 @@
-4 N Queen Problem
-
 #include <iostream>
-#include <stdlib.h>
-#include <math.h>
 using namespace std;
 
-int Place(int r,int c);
-int NQueen(int r,int n);
-int Print(int n);
-int x[20],Count;
-
-int NQueen(int r,int n){
-    int c,i;
-    for(c=1; c<=n; c++){
-   	 if(Place(r,c)){
-   		 x[r]=c;
-   		 if(r==n){
-   			 Print(n);
-   		 }
-   		 else{
-   			 NQueen(r+1,n);
-   		 }
-   	 }
-    }
-    return 0;
-}
-
-int Place(int r,int c){
-    int i;
-    for(i=1; i<=r-1; i++){
-   	 if(x[i]==c){
-   		 return 0;
-   	 }
-   	 else{
-   		 if(abs(x[i]-c)==abs(i-r)){
-   			 return 0;
-   		 }
-   	 }
-    }
-    return 1;
-}
-
-
-int Print(int n){
-    int i,j;
-    cout<<"\nSolution"<<++Count<<"\n\n";
-    for(i=1;i<=n;i++){
-   	 cout<<"\t"<<i;
-    }
-    for(i=1;i<=n;i++){
-   	 cout<<"\n"<<i;
-   	 for(j=1;j<=n;j++){
-   		 if(x[i]==j)
-   			 cout<<"\t Q";
-   		 else
-   			 cout<<"\t -";
-   	 }
-    }
-    return 0;
-
-}
-
-int main() {
-    cout << "**N Queen Problem**" << endl;
-
+int main()
+{
     int n;
-    cout<<"Enter the No. of Queens : ";
+    cout<<"Enter the size of array =>";
     cin>>n;
-
-    NQueen(1,n);
-
+   
+    int arr[n];
+    cout<<"Enter "<<n<<" Integers in ascending order => \n";
+    for(int i=0;i<n;i++)
+        cin>>arr[i];    
+   
+    int target;
+    cout<<"Enter the number you want to search => ";
+    cin>>target;
+   
+    int start = 0, end = n-1, mid;
+    int pos= -1;
+   
+    while(start<=end)
+    {
+        mid = (start+end)/2;
+       
+        if(arr[mid]==target){
+            pos = mid;
+            break;
+        }
+        else if(arr[mid]>target)
+            end = mid -1;  
+        else
+            start = mid + 1;
+    }
+   
+    if(pos==-1)
+        cout<<target<<" is not present in the array"<<endl;
+    else
+        cout<<target<<" is present in the array at position "<<pos<<endl;
+       
     return 0;
 }
